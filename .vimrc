@@ -1,5 +1,3 @@
-
-"Visual
 syntax enable
 set t_Co=256
 syntax on 
@@ -16,8 +14,8 @@ set wildmenu
 set cursorline
 hi CursorLine term=bold cterm=bold guibg=Grey40
 highlight LineNr ctermfg=grey
-set colorcolumn=80
-highlight ColorColumn ctermbg=237
+"set colorcolumn=80
+"highlight ColorColumn ctermbg=237
 
 
 "custom
@@ -35,8 +33,6 @@ set backspace=indent,eol,start
 
 
 " keybindings
-nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
-map <C-n> :NERDTreeToggle<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -46,27 +42,22 @@ map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
 map <leader>ss :setlocal spell!<cr>
 nmap <leader>w :w!<cr>
-nmap <leader>p :LLPStartPreview<cr>
+nmap <leader>p :!pdflatex %<cr>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" move lines up/down
+nmap <leader>j mz:m+<cr>`z
+nmap <leader>k mz:m-2<cr>`z
+vmap <leader>j :m'>+<cr>`<my`>mzgv`yo`z
+vmap <leader>k :m'<-2<cr>`>my`<mzgv`yo`z
+
+map <Enter> o<ESC> 
 
 
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-nnoremap <M-j> :m .+1<CR>==
-nnoremap <M-k> :m .-2<CR>==
-inoremap <M-j> <Esc>:m .+1<CR>==gi
-inoremap <M-k> <Esc>:m .-2<CR>==gi
-vnoremap <M-j> :m '>+1<CR>gv=gv
-vnoremap <M-k> :m '<-2<CR>gv=gv
 "Plugins
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdTree'
 Plugin 'scrooloose/syntastic'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'tmhedberg/SimpylFold'
@@ -81,9 +72,11 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 
-"Enable emmet only for html/css files 
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+"Airline stuff"
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
 
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 let g:airline_theme= 'badwolf'
